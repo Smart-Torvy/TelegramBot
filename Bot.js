@@ -21,11 +21,13 @@ var tgbot = require('node-telegram-bot-api');
 var token = "YOUR BOT TOKEN HERE";
 var bot = new tgbot(token, {polling:true});
 
+bot.on('message', function (msg) {
+  var chatId = msg.chat.id;
 
+if(!isAuthorized(chatId)) return;
 
   bot.onText(/\/torvy/, function (msg) { //quando riceve il comando /torvy
-  var chatId = msg.chat.id;
-  var opts = {
+    var opts = {
       reply_to_message_id: msg.message_id,
       reply_markup: JSON.stringify({
         keyboard: [
@@ -36,12 +38,12 @@ var bot = new tgbot(token, {polling:true});
     };
     bot.sendMessage(chatId, 'ACCESO O SPENTO?', opts);
 });
-
-/* Controlla se l'id è autorizzato
+});
+// Controlla se l'id è autorizzato
 function isAuthorized(userid) {
 
  for(i = 0; i < authorized_users.length; i++)
     if(authorized_users[i ] == userid) return true;
 
   return false;
-}*/
+}
