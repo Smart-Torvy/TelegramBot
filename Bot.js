@@ -1,7 +1,9 @@
 // Authorized users, replace with your real IDs
 var authorized_users = [
-111111,
+  111111,
+  000000
 ];
+
 
 // Librerie per il collegamento alle api di telegram
 //su terminale: npm install node-telegram-bot-api
@@ -18,17 +20,14 @@ var tgbot = require('node-telegram-bot-api');
 
 
 // Inizializzazione del bot con il token
-var token = "YOUR BOT TOKEN HERE";
+var token = "147183253:AAGkGQs690kUAdBaSfUPBgg5ayHJihJh_s0";
 var bot = new tgbot(token, {polling:true});
 
-bot.on('message', function (msg) {
+bot.onText(/\/torvy/, function (msg) { //quando riceve il comando /torvy
+        if(!isAuthorized(msg.from.id)) return; //controlla che sia l'id autorizzato
   var chatId = msg.chat.id;
-
-if(!isAuthorized(chatId)) return;
-
-  bot.onText(/\/torvy/, function (msg) { //quando riceve il comando /torvy
-    var opts = {
-      reply_to_message_id: msg.message_id,
+  var opts = {
+      reply_to_message_id: msg.message_id, //ti quota il messaggio che hai inviato
       reply_markup: JSON.stringify({
         keyboard: [
           ['ON','OFF']],
@@ -38,7 +37,7 @@ if(!isAuthorized(chatId)) return;
     };
     bot.sendMessage(chatId, 'ACCESO O SPENTO?', opts);
 });
-});
+
 // Controlla se l'id è autorizzato
 function isAuthorized(userid) {
 
