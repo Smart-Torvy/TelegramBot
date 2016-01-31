@@ -102,7 +102,7 @@ bot.onText(/\Movy/, function (msg) { //quando riceve il comando /torvy
   var opts = {
       reply_markup: JSON.stringify({
         keyboard: [
-          ['Batteria movy','Menu']],
+          ['Battery status','Menu']],
         resize_keyboard:true     //ridimensiona i bottoni
       })
     };
@@ -127,7 +127,7 @@ bot.onText(/\Smoky/, function (msg) {
       reply_markup: JSON.stringify({
         keyboard: [
     ['Alarm OFF','Get Gas'],
-    ['Help','Menu']
+    ['Menu']
     ],
         resize_keyboard:true     //ridimensiona i bottoni
       })
