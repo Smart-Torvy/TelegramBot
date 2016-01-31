@@ -1,5 +1,16 @@
-// Authorized users, replace with your real IDs
 var mqtt = require('mqtt');
+var emoji= require('node-emoji');
+
+//various emoji, still more to add
+var rewind= emoji.get('rewind');
+var sunglasses=emoji.get('sunglasses');
+var sorriso= emoji.get('grin');
+var batteria=emoji.get('battery');  //non vuole funzionare
+var frecciaindietro=emoji.get('arrow_left');
+var sunny=emoji.get('sunny');
+var moon=emoji.get('new_moon');
+var erba=emoji.get('leaves');
+var erbasecca=emoji.get('fallen_leaf');
 
 
 var authorized_users = [
@@ -14,10 +25,10 @@ var tgbot = require('node-telegram-bot-api');
 
 
 // Inizializzazione del bot con il token
-var token = "YOUR_TOKEN";
+var token = "TOKEN BOT";
 var bot = new tgbot(token, {polling:true});
 
-bot.onText(/Menu/, function (msg) { 
+bot.onText(/\Menu/, function (msg) { 
   if(!isAuthorized(msg.from.id)) return; //controlla che sia l'id autorizzato
   var chatId = msg.chat.id;
   var mopts = {
@@ -32,29 +43,29 @@ bot.onText(/Menu/, function (msg) {
       force_reply: true
       })
     };
-    bot.sendMessage(chatId, 'Let me know what you want next:', mopts);
+    bot.sendMessage(chatId, 'Let me know what you want next: '+ sorriso, mopts);
 });
 
-bot.onText(/Torvy/, function (msg) { 
+bot.onText(/\Torvy/, function (msg) { 
         if(!isAuthorized(msg.from.id)) return;
   var chatId = msg.chat.id;
   var topts = {
       reply_markup: JSON.stringify({
         keyboard: [
-    ['Set torvy ON','Set torvy OFF','Ecomode ON','Ecomode OFF'],
-	  ['Temperature','Real Feel Temperature','Humidity','Real Feel Humidity'],
+    [sunny + '\ntorvy ON', moon + '\ntorvy OFF',erba + '\neco ON',erbasecca + '\neco OFF'],
+    ['Temperature','Real Feel Temperature','Humidity','Real Feel Humidity'],
     ['Set Temperature'],
     ['Battery status'],
-	  ['Menu']
-	  ],
+    [rewind + 'Menu']
+	 ],
         //one_time_keyboard:true,  //dopo che la clicchi scompare
         resize_keyboard:true     //ridimensiona i bottoni
       })
     };
-    bot.sendMessage(chatId, 'Torvy commands:', topts);
+    bot.sendMessage(chatId, 'Torvy commands:' + sunglasses, topts);
 });
 
-bot.onText(/Set torvy ON/, function (msg) { //quando riceve il comando /torvy
+bot.onText(/torvy ON/, function (msg) { //quando riceve il comando /torvy
         if(!isAuthorized(msg.from.id)) return;
     invio('7,1,1,1');
   var chatId = msg.chat.id;
@@ -63,14 +74,14 @@ bot.onText(/Set torvy ON/, function (msg) { //quando riceve il comando /torvy
 
 });
 
-bot.onText(/Set torvy OFF/, function (msg) { //quando riceve il comando /torvy
+bot.onText(/torvy OFF/, function (msg) { //quando riceve il comando /torvy
         if(!isAuthorized(msg.from.id)) return;
   invio('7,1,1,1');
   var chatId = msg.chat.id;
     bot.sendMessage(chatId, 'Torvy Spento');
 });
 
-bot.onText(/\Ecomode ON/, function (msg) { //quando riceve il comando /torvy
+bot.onText(/\eco ON/, function (msg) { //quando riceve il comando /torvy
         if(!isAuthorized(msg.from.id)) return;
     invio('7,1,1,5');
   var chatId = msg.chat.id;
@@ -79,7 +90,7 @@ bot.onText(/\Ecomode ON/, function (msg) { //quando riceve il comando /torvy
 
 });
 
-bot.onText(/\Ecomode OFF/, function (msg) { //quando riceve il comando /torvy
+bot.onText(/\eco OFF/, function (msg) { //quando riceve il comando /torvy
         if(!isAuthorized(msg.from.id)) return;
     invio('8,1,1,1');
   var chatId = msg.chat.id;
@@ -96,13 +107,14 @@ bot.onText(/\Set Temperature/, function (msg) { //quando riceve il comando /torv
       
 });
 
-bot.onText(/\Movy/, function (msg) { //quando riceve il comando /torvy
+bot.onText(/\Movy/, function (msg) {
         if(!isAuthorized(msg.from.id)) return;  
   var chatId = msg.chat.id;
   var opts = {
       reply_markup: JSON.stringify({
         keyboard: [
-          ['Battery status','Menu']],
+          ['Battery status'],
+	['Menu']],
         resize_keyboard:true     //ridimensiona i bottoni
       })
     };
@@ -110,12 +122,12 @@ bot.onText(/\Movy/, function (msg) { //quando riceve il comando /torvy
     
 });
 
-bot.onText(/\Batteria ,movy/, function (msg) { //quando riceve il comando /torvy
+bot.onText(/\Battery status/, function (msg) { //quando riceve il comando /torvy
         if(!isAuthorized(msg.from.id)) return;
         invio('7,1,1,1');
   //deve ricevere lo stato della batteria   
   var chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Battery Status: ');
+    bot.sendMessage(chatId,battery+ ' Battery Status: ');
 });
 
 
