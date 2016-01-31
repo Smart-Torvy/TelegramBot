@@ -3,7 +3,7 @@ var mqtt = require('mqtt');
 
 
 var authorized_users = [
-  111111,
+  18025531,
   000000
 ];
 
@@ -14,7 +14,7 @@ var tgbot = require('node-telegram-bot-api');
 
 
 // Inizializzazione del bot con il token
-var token = "YOUR TOKEN";
+var token = "147183253:AAGkGQs690kUAdBaSfUPBgg5ayHJihJh_s0";
 var bot = new tgbot(token, {polling:true});
 
 bot.onText(/Menu/, function (msg) { 
@@ -45,7 +45,7 @@ bot.onText(/Torvy/, function (msg) {
 	  ['Temperature','Real Feel Temperature','Humidity','Real Feel Humidity'],
     ['Set Temperature'],
     ['Battery status'],
-	  ['Help', 'Menu']
+	  ['Menu']
 	  ],
         //one_time_keyboard:true,  //dopo che la clicchi scompare
         resize_keyboard:true     //ridimensiona i bottoni
