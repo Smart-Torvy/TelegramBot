@@ -3,7 +3,7 @@ var mqtt = require('mqtt');
 
 
 var authorized_users = [
-  18025531,
+  111111,
   000000
 ];
 
@@ -14,7 +14,7 @@ var tgbot = require('node-telegram-bot-api');
 
 
 // Inizializzazione del bot con il token
-var token = "147183253:AAGkGQs690kUAdBaSfUPBgg5ayHJihJh_s0";
+var token = "YOUR_TOKEN";
 var bot = new tgbot(token, {polling:true});
 
 bot.onText(/Menu/, function (msg) { 
